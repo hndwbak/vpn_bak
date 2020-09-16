@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="/com/css/common.css" />
+</head>
+<script language="javascript" src="/com/common.js"></script>
+<script language="javascript" src="/com/component.js"></script>
+<script language="javascript">
+    function init() {
+        var to_inst = 0;
+        try {
+            var str = window.location.href;
+            var pos = str.lastIndexOf("?");
+            to_inst = parseInt(str.substring(pos + 1));
+        } catch (e) {
+            document.getElementById("install_component").style.display = "";
+            document.getElementById("install_dkey_v2").style.display = "";
+            document.getElementById("install_dkey_v3").style.display = "";
+            return; //
+        }
+        if (!IsIE()) {
+            $ID("autoDkeyV2").style.display = "none";
+        }
+        switch (to_inst) {
+            case DKEY_DISABLE: //
+                document.getElementById("install_dkey_v2").style.display = "";
+                document.getElementById("install_dkey_v3").style.display = "";
+                document.title = tr("您已经安装了所有USB-Key驱动");
+                document.getElementById("tabletitle").innerHTML = tr("您已经安装了所有USB-Key驱动");
+                break;
+            case DKEY_ENABLE_V2: // v2
+                document.getElementById("install_dkey_v2").style.display = "";
+                document.title = tr("下载USB-Key驱动");
+                document.getElementById("tabletitle").innerHTML = tr("下载USB-Key驱动");
+                break;
+            case DKEY_ENABLE_V3: // v3
+                document.getElementById("install_dkey_v3").style.display = "";
+                document.title = tr("下载USB-Key驱动");
+                document.getElementById("tabletitle").innerHTML = tr("下载USB-Key驱动");
+                break;
+            case DKEY_ENABLE_BOTH: // v2, v3
+                document.getElementById("install_dkey_v2").style.display = "";
+                document.getElementById("install_dkey_v3").style.display = "";
+                document.title = tr("下载USB-Key驱动");
+                document.getElementById("tabletitle").innerHTML = tr("下载USB-Key驱动");
+                break;
+            case INST_COMP: //
+                document.getElementById("install_component").style.display = "";
+                document.title = tr("安装所有组件");
+                document.getElementById("tabletitle").innerHTML = tr("安装所有组件");
+                break;
+            case INST_MAC: //
+                document.getElementById("install_mac").style.display = "";
+                document.title = tr("安装浏览器控件");
+                document.getElementById("tabletitle").innerHTML = tr("安装浏览器控件");
+                break;
+            default:
+                document.title = tr("下载");
+                document.getElementById("tabletitle").innerHTML = tr("下载USB-Key驱动");
+                document.getElementById("install_component").style.display = "";
+                document.getElementById("install_dkey_v2").style.display = "";
+                document.getElementById("install_dkey_v3").style.display = "";
+                if (isMac()) {
+                    document.getElementById("install_mac").style.display = "";
+                }
+        }
+
+        var ua = navigator.userAgent;
+        var IEversion = parseFloat(ua.substring(ua.indexOf("MSIE ") + 5, ua.indexOf(";", ua.indexOf("MSIE "))));
+        if (IEversion < 6) {
+            document.getElementById("btDkeyv2Dw").style.display = "none";
+            document.getElementById("btDkeyv3Dw").style.display = "none";
+            document.getElementById("IE5dw3").style.display = "inline";
+            document.getElementById("IE5dw2").style.display = "inline";
+        }
+    }
+
+    function getUrl(flag) {
+        if (isLinux()) {
+            flag = flag.replace("EasyConnectInstaller.exe", "cross/install-linux.sh");
+        } else if (isMac()) {
+            flag = flag.replace("EasyConnectInstaller.exe", "cross/install-macosx.sh");
+        } else if ((Browser.isWin8 || Browser.isWin10) && flag == "dkeydrv.cab") {
+            flag = flag.replace("dkeydrv.cab", "dkeydrv_win8.cab");
+        }
+        window.location = flag;
+    }
+</script>
+
+<body onload="init();">
+    <div class="container">
+        <div class="downloader">
+            <div class="content">
+                <h2 id="tabletitle"></h2>
+                <p id="install_component" style="display:none">
+                    <span class="btnBorder"><input type="button" _value="下载" class="btn" onClick="getUrl('EasyConnectInstaller.exe')"></span>
+                </p>
+                <p id="install_dkey_v2" style="display:none">
+                    <label>USB-Key V2:</label>
+                    <span class="btnBorder"><input type="button" id="autoDkeyV2" _value="在线安装" class="btn" onClick="getUrl('dkeyv2Install.html')" /></span>
+                    <span class="btnBorder"><input type="button" id="btDkeyv2Dw" _value="下载" class="btn" onClick="getUrl('dkeydrv.cab')" /></span>
+                    <a id="IE5dw2" style="display:none" href="/com/dkeydrv.cab" _html="下载"></a>
+                </p>
+                <p id="install_dkey_v3" style="display:none">
+                    <label>USB-Key V3:</label>
+                    <span class="btnBorder"><input type="button" _value="在线安装" class="btn" onClick="getUrl('dkeyv3Install.html')"></span>
+                    <span class="btnBorder"><input type="button" id="btDkeyv3Dw"  _value="下载" class="btn" onClick="getUrl('dkeyv3.cab')"></span>
+                    <a id="IE5dw3" style="display:none" href="/com/dkeyv3.cab" _html="下载"></a>
+                </p>
+                <p id="install_mac" style="display:none">
+                    <span class="btnBorder"><input type="button" _value="下载" class="btn" onClick="javascript:window.location = G_DLLS[ID_MAC_CSCM] && G_DLLS[ID_MAC_CSCM][ID_CODEBASE] ? G_DLLS[ID_MAC_CSCM][ID_CODEBASE] : '/com/EasyConnectPlugin.dmg';"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.setLang();
+    </script>
+</body>
+
+</html>

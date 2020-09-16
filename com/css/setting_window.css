@@ -1,0 +1,13 @@
+﻿@charset "utf-8";
+.head, .xnewwindow_foot input { background: url(../images/set/bg.png) repeat-x top; }
+.xnewwindow_el { background: transparent url(../images/set/window_bg.png) no-repeat; _background: none; _background-color:#CECFD0  }
+.xnewwindow_head { position:absolute !important; top:4px; height:34px; width:100%; z-index:99; }
+.xnewwindow_close { width: 16px; height: 16px; display:block; background: url(../images/set/ico.gif) no-repeat 0px -30px; float:right; margin:8px 20px 0 0; cursor:pointer }
+.xnewwindow_el_inner { margin:4px; }
+.xnewwindow_content_wraper { }
+.xnewwindow_body { background-color:#FAFAFA; }
+.xnewwindow_body iframe { width: 650px !important; height: 450px !important; border: none; background-color: transparent; }
+.xnewwindow_foot { background-color:#F4F4F4; height:40px; line-height:40px; border-top:solid 1px #ccc; text-align:right; width:100%; }
+.xnewwindow_foot input { border:none; background-color:transparent; background-position: 0px -116px; width:75px; height:27px; color:#000; border:1px solid #9EA1AD; padding:1px; background-color: #F7F7F9; margin:7px 10px 0 0; cursor:pointer; }
+.window_mask { background-color: #000; filter: alpha(opacity=30); -moz-opacity: 0.3; -khtml-opacity: 0.3; opacity: 0.3; position: absolute; top: 0px; left: 0px; z-index: 97; width:100%; height:100% }
+.head { height:34px; line-height:34px; border-bottom:2px solid #569C23; color:#197319; font-size:14px; font-weight:bold; padding-left:10px; }
