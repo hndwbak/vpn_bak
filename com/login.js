@@ -1,6 +1,7 @@
 /**
  * Created by chenpei on 2018/8/13.
  * 判断是否为mac
+ * oa.hn.csg.cn
  */
 function isMac(){
 	var agt=navigator.userAgent.toLowerCase();
